@@ -8,21 +8,17 @@ Usage:
 
 from setuptools import setup
 
-APP = ['Tool.py']
+APP = ['Localizable Tool.py']
 # 自写模块放在DATA_FILES列表中
 DATA_FILES = ['StringsFileUtil.py', 'Xls2Xml.py', 'Xml2Xls.py', 'Log.py', 'Strings2Xls.py', 'XlsFileUtil.py',
               'XmlFileUtil.py', 'Strings2Xml.py', 'Xls2Strings.py']
 # 第三方库放在OPTIONS下的includes对应的列表中
-OPTIONS = {'includes': ['os', 'tkinter', 'clipboard',
-                        'PyQt5', 'PyQt5.QtCore', 'PyQt5.QtWidgets',
-                        'time', 'optparse', 'pyExcelerator',
-                        'codecs', 're',
-                        'sys', 'xlrd', 'xml.dom.minidom']}
+OPTIONS = {'includes': []}
 
 setup(
     app=APP,
     data_files=DATA_FILES,
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],
-    install_requires=[]
+    install_requires=['clipboard', 'PyQt5']
 )
