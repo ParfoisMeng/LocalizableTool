@@ -1,10 +1,11 @@
 # -*- coding: UTF-8 -*-
-import os
 import tkinter
-import clipboard
 
 import PyQt5
+import clipboard
 from PyQt5 import QtCore, QtWidgets
+
+from python import Xml2Xls, Xls2Xml
 
 
 class MyWindow(QtWidgets.QMainWindow):
@@ -115,7 +116,7 @@ class MyWindow(QtWidgets.QMainWindow):
             return "multiple"
 
     def formatResultShellStr(self):
-        self.resultStr = "python " + self.choose_xml2xls_or_xls2xml() + ".py -f " + self.source_dir + " -t " + self.target_dir + " -e " + self.choose_single_or_multiple()
+        self.resultStr = "python3 " + self.choose_xml2xls_or_xls2xml() + ".py -f " + self.source_dir + " -t " + self.target_dir + " -e " + self.choose_single_or_multiple()
         print(self.resultStr)
         self.resultShellStr.setText("脚本语言：" + self.resultStr)
 
@@ -124,7 +125,16 @@ class MyWindow(QtWidgets.QMainWindow):
             clipboard.copy(self.resultStr)
 
     def todo_make(self):
-        os.system(self.resultStr)
+        if self.typeChooseXml2Xls.isChecked():
+            if self.fileCreateSingle.isChecked():
+                Xml2Xls.convertToSingleFile(self.source_dir, self.target_dir)
+            else:
+                Xml2Xls.convertToMultipleFiles(self.source_dir, self.target_dir)
+        else:
+            if self.fileCreateSingle.isChecked():
+                Xls2Xml.convertFromSingleForm(self.source_dir, self.target_dir)
+            else:
+                Xls2Xml.convertFromMultipleForm(self.source_dir, self.target_dir)
         print("OK")
 
 

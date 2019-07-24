@@ -18,13 +18,13 @@ class StringsFileUtil:
     'iOS Localizable.strings file util'
 
     @staticmethod
-    def writeToFile(keys, values, directory, name, additional):
+    def writeToFile(keys, values, directory, name):
         if not os.path.exists(directory):
             os.makedirs(directory)
 
         Log.info("Creating iOS file:" + directory + name)
 
-        fo = open(directory + "/" + name, "wb")
+        fo = open(directory + "/" + name, "w")
 
         for x in range(len(keys)):
             if values[x] is None or values[x] == '':
@@ -32,13 +32,8 @@ class StringsFileUtil:
                           "\'s value is None. Index:" + str(x + 1))
                 continue
 
-            key = keys[x].strip()
-            value = values[x]
-            content = "\"" + key + "\" " + "= " + "\"" + value + "\";\n"
+            content = "\"" + keys[x].strip() + "\" " + "= " + "\"" + values[x].strip() + "\";\n"
             fo.write(content)
-
-        if additional is not None:
-            fo.write(additional)
 
         fo.close()
 

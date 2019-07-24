@@ -3,7 +3,7 @@
 import optparse
 import time
 
-import pyExcelerator
+import xlwt
 
 from python.StringsFileUtil import *
 
@@ -53,7 +53,7 @@ def convertToSingleFile(stringsDir, targetDir):
                     fileName = stringfile.replace(".strings", "")
                     filePath = destDir + "/" + fileName + ".xls"
                     if not os.path.exists(filePath):
-                        workbook = pyExcelerator.Workbook()
+                        workbook = xlwt.Workbook()
                         ws = workbook.add_sheet(fileName)
                         index = 0
                         for dirname in dirnames:
@@ -91,7 +91,7 @@ def convertToMultipleFiles(stringsDir, targetDir):
     for _, dirnames, _ in os.walk(stringsDir):
         lprojDirs = [di for di in dirnames if di.endswith(".lproj")]
         for dirname in lprojDirs:
-            workbook = pyExcelerator.Workbook()
+            workbook = xlwt.Workbook()
             for _, _, filenames in os.walk(stringsDir + '/' + dirname):
                 stringsFiles = [
                     fi for fi in filenames if fi.endswith(".strings")]

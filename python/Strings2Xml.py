@@ -18,10 +18,6 @@ def addParser():
                       help="The directory where the xml files will be saved.",
                       metavar="targetDir")
 
-    parser.add_option("-a", "--additional",
-                      help="additional info.",
-                      metavar="additional")
-
     (options, args) = parser.parse_args()
     Log.info("options: %s, args: %s" % (options, args))
 
@@ -47,8 +43,7 @@ def startConvert(options):
         for filename in stringsFilenames:
             path = fileDir + "/" + filename
             (keys, values) = StringsFileUtil.getKeysAndValues(path)
-            XmlFileUtil.writeToFile(keys, values, targetDir,
-                                    filename.replace(".strings", ".xml"), options.additional)
+            XmlFileUtil.writeToFile(keys, values, targetDir, filename.replace(".strings", ".xml"))
 
     Log.info("Convert successfully! you can see xml files in %s" % (targetDir))
 

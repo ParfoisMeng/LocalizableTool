@@ -24,17 +24,13 @@ def addParser():
                       help="The excel(.xls) file storage forms including single(single file), multiple(multiple files), default is multiple.",
                       metavar="excelStorageForm")
 
-    parser.add_option("-a", "--additional",
-                      help="additional info.",
-                      metavar="additional")
-
     (options, args) = parser.parse_args()
     Log.info("options: %s, args: %s" % (options, args))
 
     return options
 
 
-def convertFromSingleForm(options, fileDir, targetDir):
+def convertFromSingleForm(fileDir, targetDir):
     for _, _, filenames in os.walk(fileDir):
         xlsFilenames = [fi for fi in filenames if fi.endswith(".xls")]
         for file in xlsFilenames:
@@ -58,13 +54,11 @@ def convertFromSingleForm(options, fileDir, targetDir):
                 if languageName == '':
                     path = targetDir + "/values/"
                 filename = file.replace(".xls", ".xml")
-                XmlFileUtil.writeToFile(
-                    keys, values, path, filename, options.additional)
-    print("Convert %s successfully! you can xml files in %s" % (
-        fileDir, targetDir))
+                XmlFileUtil.writeToFile(keys, values, path, filename)
+    print("Convert %s successfully! you can xml files in %s" % (fileDir, targetDir))
 
 
-def convertFromMultipleForm(options, fileDir, targetDir):
+def convertFromMultipleForm(fileDir, targetDir):
     for _, _, filenames in os.walk(fileDir):
         xlsFilenames = [fi for fi in filenames if fi.endswith(".xls")]
         for file in xlsFilenames:
@@ -83,11 +77,8 @@ def convertFromMultipleForm(options, fileDir, targetDir):
                 keys = table.col_values(0)
                 values = table.col_values(1)
                 filename = table.name.replace(".strings", ".xml")
-
-                XmlFileUtil.writeToFile(
-                    keys, values, path, filename, options.additional)
-    print("Convert %s successfully! you can xml files in %s" % (
-        fileDir, targetDir))
+                XmlFileUtil.writeToFile(keys, values, path, filename)
+    print("Convert %s successfully! you can xml files in %s" % (fileDir, targetDir))
 
 
 def startConvert(options):

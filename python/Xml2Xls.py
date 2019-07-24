@@ -3,7 +3,7 @@
 import optparse
 import time
 
-import pyExcelerator
+import xlwt
 
 from python.XmlFileUtil import *
 
@@ -37,7 +37,7 @@ def convertToMultipleFiles(fileDir, targetDir):
     for _, dirnames, _ in os.walk(fileDir):
         valuesDirs = [di for di in dirnames if di.startswith("values")]
         for dirname in valuesDirs:
-            workbook = pyExcelerator.Workbook()
+            workbook = xlwt.Workbook()
             for _, _, filenames in os.walk(fileDir + '/' + dirname):
                 xmlFiles = [fi for fi in filenames if fi.endswith(".xml")]
                 for xmlfile in xmlFiles:
@@ -67,7 +67,7 @@ def convertToSingleFile(fileDir, targetDir):
                     fileName = xmlfile.replace(".xml", "")
                     filePath = destDir + "/" + fileName + ".xls"
                     if not os.path.exists(filePath):
-                        workbook = pyExcelerator.Workbook()
+                        workbook = xlwt.Workbook()
                         ws = workbook.add_sheet(fileName)
                         index = 0
                         for dirname in dirnames:

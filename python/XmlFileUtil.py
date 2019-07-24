@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 
 import os
-import re
 import xml.dom.minidom
 
 from python.Log import *
@@ -12,13 +11,13 @@ class XmlFileUtil:
     'android strings.xml file util'
 
     @staticmethod
-    def writeToFile(keys, values, directory, filename, additional):
+    def writeToFile(keys, values, directory, filename):
         if not os.path.exists(directory):
             os.makedirs(directory)
 
         fo = open(directory + "/" + filename, "wb")
 
-        fo.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n")
+        fo.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n".encode())
 
         for x in range(len(keys)):
             if values[x] is None or values[x] == '':
@@ -26,15 +25,10 @@ class XmlFileUtil:
                           "\'s value is None. Index:" + str(x + 1))
                 continue
 
-            key = keys[x].strip()
-            value = re.sub(r'(%\d\$)(@)', r'\1s', values[x])
-            content = "   <string name=\"" + key + "\">" + value + "</string>\n"
-            fo.write(content)
+            content = "   <string name=\"" + keys[x].strip() + "\">" + values[x].strip() + "</string>\n"
+            fo.write(content.encode())
 
-        if additional is not None:
-            fo.write(additional)
-
-        fo.write("</resources>")
+        fo.write("</resources>".encode())
         fo.close()
 
     @staticmethod

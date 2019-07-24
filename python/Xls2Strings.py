@@ -24,10 +24,6 @@ def addParser():
                       help="The excel(.xls) file storage forms including single(single file), multiple(multiple files), default is multiple.",
                       metavar="excelStorageForm")
 
-    parser.add_option("-a", "--additional",
-                      help="additional info.",
-                      metavar="additional")
-
     (options, args) = parser.parse_args()
     Log.info("options: %s, args: %s" % (options, args))
 
@@ -50,9 +46,8 @@ def convertFromSingleForm(options, fileDir, targetDir):
                 languageName = firstRow[index]
                 values = table.col_values(index)
                 del values[0]
-                StringsFileUtil.writeToFile(
-                    keys, values, targetDir + "/" + languageName + ".lproj/", file.replace(".xls", "") + ".strings",
-                    options.additional)
+                StringsFileUtil.writeToFile(keys, values, targetDir + "/" + languageName + ".lproj/",
+                                            file.replace(".xls", "") + ".strings")
     print("Convert %s successfully! you can see strings file in %s" % (
         fileDir, targetDir))
 
@@ -68,13 +63,11 @@ def convertFromMultipleForm(options, fileDir, targetDir):
 
             for sheet in xlsFileUtil.getAllTables():
                 iosDestFilePath = langFolderPath + "/" + sheet.name
-                iosFileManager = open(iosDestFilePath, "wb")
+                iosFileManager = open(iosDestFilePath, "w")
                 for row in sheet.get_rows():
                     content = "\"" + row[0].value + "\" " + \
                               "= " + "\"" + row[1].value + "\";\n"
                     iosFileManager.write(content)
-                if options.additional is not None:
-                    iosFileManager.write(options.additional)
                 iosFileManager.close()
     print("Convert %s successfully! you can see strings file in %s" % (
         fileDir, targetDir))
