@@ -5,7 +5,7 @@ import time
 
 import pyExcelerator
 
-from XmlFileUtil import *
+from python.XmlFileUtil import *
 
 
 def addParser():

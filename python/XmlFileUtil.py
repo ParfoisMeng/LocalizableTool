@@ -5,7 +5,7 @@ import os
 import re
 import xml.dom.minidom
 
-from Log import *
+from python.Log import *
 
 
 class XmlFileUtil:

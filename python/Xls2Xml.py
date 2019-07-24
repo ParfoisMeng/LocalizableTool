@@ -3,8 +3,8 @@
 import optparse
 import time
 
-from StringsFileUtil import *
-from XlsFileUtil import *
+from python.XlsFileUtil import *
+from python.XmlFileUtil import *
 
 
 def addParser():
@@ -15,7 +15,7 @@ def addParser():
                       metavar="fileDir")
 
     parser.add_option("-t", "--targetDir",
-                      help="The directory where the strings files will be saved.",
+                      help="The directory where the xml files will be saved.",
                       metavar="targetDir")
 
     parser.add_option("-e", "--excelStorageForm",
@@ -50,10 +50,17 @@ def convertFromSingleForm(options, fileDir, targetDir):
                 languageName = firstRow[index]
                 values = table.col_values(index)
                 del values[0]
-                StringsFileUtil.writeToFile(
-                    keys, values, targetDir + "/" + languageName + ".lproj/", file.replace(".xls", "") + ".strings",
-                    options.additional)
-    print("Convert %s successfully! you can see strings file in %s" % (
+
+                if languageName == "zh-Hans":
+                    languageName = "zh-rCN"
+
+                path = targetDir + "/values-" + languageName + "/"
+                if languageName == '':
+                    path = targetDir + "/values/"
+                filename = file.replace(".xls", ".xml")
+                XmlFileUtil.writeToFile(
+                    keys, values, path, filename, options.additional)
+    print("Convert %s successfully! you can xml files in %s" % (
         fileDir, targetDir))
 
 
@@ -62,21 +69,24 @@ def convertFromMultipleForm(options, fileDir, targetDir):
         xlsFilenames = [fi for fi in filenames if fi.endswith(".xls")]
         for file in xlsFilenames:
             xlsFileUtil = XlsFileUtil(fileDir + "/" + file)
-            langFolderPath = targetDir + "/" + file.replace(".xls", "")
-            if not os.path.exists(langFolderPath):
-                os.makedirs(langFolderPath)
 
-            for sheet in xlsFileUtil.getAllTables():
-                iosDestFilePath = langFolderPath + "/" + sheet.name
-                iosFileManager = open(iosDestFilePath, "wb")
-                for row in sheet.get_rows():
-                    content = "\"" + row[0].value + "\" " + \
-                              "= " + "\"" + row[1].value + "\";\n"
-                    iosFileManager.write(content)
-                if options.additional is not None:
-                    iosFileManager.write(options.additional)
-                iosFileManager.close()
-    print("Convert %s successfully! you can see strings file in %s" % (
+            languageName = file.replace(".xls", "")
+            if languageName == "zh-Hans":
+                languageName = "zh-rCN"
+            path = targetDir + "/values-" + languageName + "/"
+            if languageName == 'en':
+                path = targetDir + "/values/"
+            if not os.path.exists(path):
+                os.makedirs(path)
+
+            for table in xlsFileUtil.getAllTables():
+                keys = table.col_values(0)
+                values = table.col_values(1)
+                filename = table.name.replace(".strings", ".xml")
+
+                XmlFileUtil.writeToFile(
+                    keys, values, path, filename, options.additional)
+    print("Convert %s successfully! you can xml files in %s" % (
         fileDir, targetDir))
 
 
@@ -91,10 +101,10 @@ def startConvert(options):
         return
 
     if targetDir is None:
-        print("Target file directory can not be empty! try -h for help.")
+        print("Target file path can not be empty! try -h for help.")
         return
 
-    targetDir = targetDir + "/xls-files-to-strings_" + \
+    targetDir = targetDir + "/xls-files-to-xml_" + \
                 time.strftime("%Y%m%d_%H%M%S")
     if not os.path.exists(targetDir):
         os.makedirs(targetDir)

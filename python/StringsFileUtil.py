@@ -5,7 +5,7 @@ import codecs
 import os
 import re
 
-from Log import *
+from python.Log import *
 
 
 def removeComments(s):

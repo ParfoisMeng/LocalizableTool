@@ -8,10 +8,11 @@ Usage:
 
 from setuptools import setup
 
-APP = ['Localizable Tool.py']
+APP = ['python/Localizable Tool.py']
 # 自写模块放在DATA_FILES列表中
-DATA_FILES = ['StringsFileUtil.py', 'Xls2Xml.py', 'Xml2Xls.py', 'Log.py', 'Strings2Xls.py', 'XlsFileUtil.py',
-              'XmlFileUtil.py', 'Strings2Xml.py', 'Xls2Strings.py']
+DATA_FILES = ['python/StringsFileUtil.py', 'python/Xls2Xml.py', 'python/Xml2Xls.py', 'python/Log.py',
+              'python/Strings2Xls.py', 'python/XlsFileUtil.py', 'python/XmlFileUtil.py', 'python/Strings2Xml.py',
+              'python/Xls2Strings.py']
 # 第三方库放在OPTIONS下的includes对应的列表中
 OPTIONS = {'includes': []}
 

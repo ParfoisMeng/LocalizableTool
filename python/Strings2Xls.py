@@ -5,7 +5,7 @@ import time
 
 import pyExcelerator
 
-from StringsFileUtil import *
+from python.StringsFileUtil import *
 
 
 # Add command option

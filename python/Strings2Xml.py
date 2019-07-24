@@ -3,8 +3,8 @@
 import optparse
 import time
 
-from StringsFileUtil import *
-from XmlFileUtil import *
+from python.StringsFileUtil import *
+from python.XmlFileUtil import *
 
 
 def addParser():

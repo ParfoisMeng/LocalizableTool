@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Localizable.iml" filepath="$PROJECT_DIR$/.idea/Localizable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LocalizableTool.iml" filepath="$PROJECT_DIR$/LocalizableTool.iml" />
     </modules>
   </component>
 </project>
