@@ -1,37 +1,23 @@
-## Welcome to GitHub Pages
+# Localizable Tool 使用说明
 
-You can use the [editor on GitHub](https://github.com/ParfoisMeng/LocalizableTool/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Android 开发国际化可视化工具，可将 `strings.xml` 与 Excel 互相转换。
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+> 1. 核心 Python 脚本代码来自 Github 开源项目 [Localizable.strings2Excel](https://github.com/CatchZeng/Localizable.strings2Excel) ，在其基础上做了一定的修改以适配 Python3。
+> 2. 可视化界面使用 [PyQt5](https://pypi.org/project/PyQt5/) 编写。
+> 3. 本工具的开发是边学边写，所以内部代码写的很渣。
 
-### Markdown
+- - - - - 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+#### 页面说明
 
-# Header 1
-## Header 2
-### Header 3
+![App截图](https://raw.githubusercontent.com/ParfoisMeng/LocalizableTool/master/screenshot/1.png)
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ParfoisMeng/LocalizableTool/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+上图各标识点说明：
+1. 选择是 Xml2Xls(`strings.xml`转Excel) 还是 Xls2Xml(Excel转`strings.xml`) ，默认为前者。
+2. 选择源文件夹。如果是 Xml2Xls 则选择来源的 Xml 相关文件夹路径(应包含 values/values-en 等文件夹)，如果是 Xls2Xml 则选择来源的 Excel 相关文件夹路径(应包含一个或多个文件夹)。
+3. 选择目标文件夹。如果是 Xml2Xls 则选择生成目标 Excel 的路径，如果是 Xls2Xml 则选择生成目标 Xml 的路径。
+4. 选择 Single(单文件) 还是 Multiple(多文件) 模式。Xml2Xls 在 Single 模式下会生成以语种为列名的单个 Excel 文件，在 Multiple 模式下会生成对应语种的多个 Excel 文件；Xls2Xml 与 Xml2Xls 对应，Single 模式需要选择以语种为列名的单个 Excel 文件，Multiple 需要选择对应语种的多个 Excel 文件。
+5. 生成的脚本语言。使用此可视化工具时可以不用关注。
+6. 复制 5 中的脚本语言到剪贴板。使用此可视化工具时可以不用关注。
+7. 执行转换。
