@@ -6,8 +6,9 @@ Android 开发国际化可视化工具，可将 `strings.xml` 与 Excel 互相�
 > 2. 可视化界面使用 [PyQt5](https://pypi.org/project/PyQt5/) 编写。
 > 3. 本工具的开发是边学边写，所以内部代码写的很渣。
 
-- - - - - 
+下载：[releases](https://github.com/ParfoisMeng/LocalizableTool/releases)
 
+- - - - - 
 
 #### 页面说明
 
